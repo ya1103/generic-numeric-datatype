@@ -72,40 +72,37 @@ class NumericType: public Numeric{
         bool isLessThan(const Numeric& other) const override
         {
             try{
-                auto ptr = dynamic_cast<const NumericType<T>&>(&other);
+                auto ptr = dynamic_cast<const NumericType<T>&>(other);
                 return this->value < ptr.getValue();
             } 
             catch(const std::bad_cast&)
             {
                 throw std::invalid_argument("Cannot compare between non-matching numeric types!");
             }
-            //expecting compiler error
         }
 
         bool isGreaterThan(const Numeric& other) const override
         {
             try{
-                auto ptr = dynamic_cast<const NumericType<T>&>(&other);
+                auto ptr = dynamic_cast<const NumericType<T>&>(other);
                 return this->value > ptr.getValue();
             } 
             catch(const std::bad_cast&)
             {
                 throw std::invalid_argument("Cannot compare between non-matching numeric types!");
-            }
-            //expecting compiler error            
+            }        
         }
 
         bool isEqualTo(const Numeric& other) const override
         {
             try{
-                auto ptr = dynamic_cast<const NumericType<T>&>(&other);
+                auto ptr = dynamic_cast<const NumericType<T>&>(other);
                 return this->value == ptr.getValue();
             } 
             catch(const std::bad_cast&)
             {
                 throw std::invalid_argument("Cannot compare between non-matching numeric types!");
-            }
-            //expecting compiler error            
+            }       
         }
 
         void print(std::ostream& os) override{
