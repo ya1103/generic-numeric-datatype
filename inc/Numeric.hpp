@@ -23,6 +23,9 @@ class Numeric{
         virtual bool isLessThan(const Numeric& other) const = 0;
         virtual bool isGreaterThan(const Numeric& other) const = 0;
         virtual bool isEqualTo(const Numeric& other) const = 0;
+
+        //Helper Functions
+        virtual void print(std::ostream&) = 0;
 };
 
 #endif

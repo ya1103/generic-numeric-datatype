@@ -34,7 +34,7 @@ class NumericType: public Numeric{
             //Check if cast is valid
             if(ptr == nullptr)
             {
-                throw std::invalid_argument("Cannot perform addition on non-matching numeric types!");
+                throw std::invalid_argument("Cannot perform subtraction on non-matching numeric types!");
             }
 
             return std::make_unique<NumericType<T>>(this->value - ptr->getValue());
@@ -48,7 +48,7 @@ class NumericType: public Numeric{
             //Check if cast is valid
             if(ptr == nullptr)
             {
-                throw std::invalid_argument("Cannot perform addition on non-matching numeric types!");
+                throw std::invalid_argument("Cannot perform multiplication on non-matching numeric types!");
             }
 
             return std::make_unique<NumericType<T>>(this->value * ptr->getValue());
@@ -62,7 +62,7 @@ class NumericType: public Numeric{
             //Check if cast is valid
             if(ptr == nullptr)
             {
-                throw std::invalid_argument("Cannot perform addition on non-matching numeric types!");
+                throw std::invalid_argument("Cannot perform division on non-matching numeric types!");
             }
 
             return std::make_unique<NumericType<T>>(this->value / ptr->getValue());
@@ -106,6 +106,10 @@ class NumericType: public Numeric{
                 throw std::invalid_argument("Cannot compare between non-matching numeric types!");
             }
             //expecting compiler error            
+        }
+
+        void print(std::ostream& os) override{
+            os << value;
         }
 };
 
