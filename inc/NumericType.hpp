@@ -12,6 +12,12 @@ class NumericType: public Numeric{
         NumericType(T val) : value(val){}
 
         T getValue() const {return value;}
+
+        std::string toString() const override {
+            std::ostringstream oss;
+            oss << value; // Formats as (real, imag)
+            return oss.str();
+        }
         
         std::unique_ptr<Numeric> add(const Numeric& other) const override
         {
@@ -122,6 +128,11 @@ class NumericType<std::complex<double>> : public Numeric{
 
         const std::complex<double>& getValue() const {return value;}
 
+        std::string toString() const override {
+            std::ostringstream oss;
+            oss << value; // Formats as (real, imag)
+            return oss.str();
+        }
         std::unique_ptr<Numeric> add(const Numeric& other) const override
         {
             auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);

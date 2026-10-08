@@ -26,6 +26,7 @@ class Numeric{
 
         //Helper Functions
         virtual void print(std::ostream&) = 0;
+        virtual std::string toString() const = 0;
 };
 
 #endif
