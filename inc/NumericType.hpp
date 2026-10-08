@@ -133,6 +133,11 @@ class NumericType<std::complex<double>> : public Numeric{
             oss << value; // Formats as (real, imag)
             return oss.str();
         }
+
+        void print(std::ostream& os) override {
+            os << toString();
+        }
+        
         std::unique_ptr<Numeric> add(const Numeric& other) const override
         {
             auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);

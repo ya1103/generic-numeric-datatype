@@ -66,8 +66,9 @@ int main() {
     }
     std::cout << "\n";
 
-    // 5. Sorting Vectors of Polymorphic Pointers using std::sort
+    // Sorting Vectors of Polymorphic Pointers using std::sort
     // Sorting separate vectors for each concrete type to demonstrate comparison functions
+    // Sorting can only work for same concrete type inside vector, otherwise it throws an exception of invalid argument due to incompatible comparison
     std::cout << "--- Sorting Numeric Elements ---\n";
 
     std::vector<std::unique_ptr<Numeric>> intVector;
