@@ -110,4 +110,79 @@ class NumericType: public Numeric{
         }
 };
 
+#include <complex>
+
+//Full specialization for std::complex
+template<>
+class NumericType<std::complex<double>> : public Numeric{
+    private:
+        std::complex<double> value;
+    public:
+        NumericType(std::complex<double> val) : value(val) {}
+
+        const std::complex<double>& getValue() const {return value;}
+
+        std::unique_ptr<Numeric> add(const Numeric& other) const override
+        {
+            auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);
+            
+            //Check if cast is valid
+            if(ptr == nullptr)
+            {
+                throw std::invalid_argument("Cannot perform addition on non-matching numeric types!");
+            }
+
+            return std::make_unique<NumericType<std::complex<double>>>(this->value + ptr->getValue());
+        
+        }
+    std::unique_ptr<Numeric> subtract(const Numeric& other) const override {
+        auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);
+        if (!ptr) {
+            throw std::invalid_argument("Cannot perform subtraction on non-matching numeric types!");
+        }
+        return std::make_unique<NumericType<std::complex<double>>>(this->value - ptr->getValue());
+    }
+
+    std::unique_ptr<Numeric> multiply(const Numeric& other) const override {
+        auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);
+        if (!ptr) {
+            throw std::invalid_argument("Cannot perform multiplication on non-matching numeric types!");
+        }
+        return std::make_unique<NumericType<std::complex<double>>>(this->value * ptr->getValue());
+    }
+
+    std::unique_ptr<Numeric> divide(const Numeric& other) const override {
+        auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);
+        if (!ptr) {
+            throw std::invalid_argument("Cannot perform division on non-matching numeric types!");
+        }
+        return std::make_unique<NumericType<std::complex<double>>>(this->value / ptr->getValue());
+    }
+
+    // --- Comparisons based on Absolute Magnitude ---
+    bool isLessThan(const Numeric& other) const override {
+        auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);
+        if (!ptr) {
+            throw std::invalid_argument("Cannot compare non-matching numeric types!");
+        }
+        return std::abs(this->value) < std::abs(ptr->getValue());
+    }
+
+    bool isGreaterThan(const Numeric& other) const override {
+        auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);
+        if (!ptr) {
+            throw std::invalid_argument("Cannot compare non-matching numeric types!");
+        }
+        return std::abs(this->value) > std::abs(ptr->getValue());
+    }
+
+    bool isEqualTo(const Numeric& other) const override {
+        auto ptr = dynamic_cast<const NumericType<std::complex<double>>*>(&other);
+        if (!ptr) {
+            throw std::invalid_argument("Cannot compare non-matching numeric types!");
+        }
+        return this->value == ptr->getValue();
+    }
+};
+
 #endif
